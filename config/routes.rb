@@ -1,4 +1,10 @@
 DynamicPubmedApp::Application.routes.draw do
+  get "dynamic_pubmed/home"
+
+  get "dynamic_pubmed/help"
+
+  get "dynamic_pubmed/about"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
