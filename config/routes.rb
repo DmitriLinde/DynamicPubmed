@@ -1,9 +1,17 @@
 DynamicPubmedApp::Application.routes.draw do
+  root to: 'dynamic_pubmed#home'
+  
+  match '/help', to: 'dynamic_pubmed#help'
+  match '/about', to: 'dynamic_pubmed#about'
+  match '/contact', to: 'dynamic_pubmed#contact'
+
   get "dynamic_pubmed/home"
 
   get "dynamic_pubmed/help"
 
   get "dynamic_pubmed/about"
+
+  get "dynamic_pubmed/contact"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

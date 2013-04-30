@@ -1,52 +1,36 @@
 require 'spec_helper'
 
 describe "Dynamic Pubmed pages" do
+
+	subject { page }
+
 	describe "Home page" do
-		it "should have the content 'Sample App'" do
-			visit '/dynamic_pubmed/home'
-			page.should have_selector('h1', :text => 'Sample App')
-		end
+		before { visit root_path }
 
-		it "should have the right title" do
-			visit '/dynamic_pubmed/home'
-			page.should have_selector('title',
-						:text => "Dynamic Pubmed")
-		end
-
-		it "should have the right title" do
-			visit '/dynamic_pubmed/home'
-			page.should_not have_selector('title', :text => "| Home")
-		end
-
-		it "satisfies temporary test" do
-			visit '/dynamic_pubmed/home'
-			page.should have_content('25')
-		end
+		it { should have_selector('h1', text: 'Dynamic Pubmed')}
+		it { should have_selector('title', text: 'Dynamic Pubmed')}
+		it { should_not have_selector('title', text: '| Home')}
+		it { should have_content('25')}
 	end
 
 	describe "Help page" do
-		it "should have the content 'Help'" do
-			visit '/dynamic_pubmed/help'
-			page.should have_selector('h1', :text => 'Help')
-		end
+		before { visit help_path }
 
-		it "should have the right title" do
-			visit '/dynamic_pubmed/help'
-			page.should have_selector('title',
-						:text => "Dynamic Pubmed | Help")
-		end
+		it { should have_selector('h1', text: 'Help')}
+		it { should have_selector('title', text: 'Dynamic Pubmed | Help')}
 	end
 
 	describe "About page" do
-		it "should have the content 'About'" do
-			visit '/dynamic_pubmed/about/'
-			page.should have_selector('h1', :text => 'About')
-		end
+		before { visit about_path }
 
-		it "should have the right title" do
-			visit '/dynamic_pubmed/about'
-			page.should have_selector('title',
-						:text => "Dynamic Pubmed | About")
-		end
+		it { should have_selector('h1', text: 'About')}
+		it { should have_selector('title', text: 'Dynamic Pubmed | About')}
+	end
+
+	describe "Contact page" do
+		before { visit contact_path }
+
+		it { should have_selector('h1', text: 'Contact')}
+		it { should have_selector('title', text: 'Dynamic Pubmed | Contact')}
 	end
 end

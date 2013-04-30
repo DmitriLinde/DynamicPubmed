@@ -1,22 +1,16 @@
-=begin
-Name: 			CS 295 Final Project - Dynamic Pubmed User Interface
-Description:	Interactive web verision of final project
-
-Author: 		Dmitri Linde
-Created:		4/29/13
-=end
-
-<% # ------------------ RUBY ------------------ %>
-
 <% 
 	def printa()
 		return 25
 	end
 %>
 
-<% # ------------------ HTML ------------------ %>
+<div class="center hero-unit">
+	<h1>Dynamic Pubmed</h1>
+	<p>
+		This is the home page for the the Dynamic Pubmed User Interface Application	<%= printa() %>
+	</p>
 
-<h1>Sample App</h1>
-<p>
-	This is the home page for the the Dynamic Pubmed User Interface Application	<%= printa() %>
-</p>
+	<%= link_to "Sign up now!", '#', class: "btn btn-large btn-primary" %>
+</div>
+
+<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
