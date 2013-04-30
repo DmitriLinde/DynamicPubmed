@@ -10,7 +10,17 @@ describe "Dynamic Pubmed pages" do
 		it "should have the right title" do
 			visit '/dynamic_pubmed/home'
 			page.should have_selector('title',
-						:text => "Dynamic Pubmed | Home")
+						:text => "Dynamic Pubmed")
+		end
+
+		it "should have the right title" do
+			visit '/dynamic_pubmed/home'
+			page.should_not have_selector('title', :text => "| Home")
+		end
+
+		it "satisfies temporary test" do
+			visit '/dynamic_pubmed/home'
+			page.should have_content('25')
 		end
 	end
 
