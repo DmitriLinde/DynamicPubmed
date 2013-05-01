@@ -29,6 +29,40 @@ textarea {
   }
 }
 
+/* home.html.rb */
+
+#pubmedQuery {
+  width: 710px;
+  height: 20px;
+  padding: 1px;
+}
+
+form {
+  padding-left: 20px;
+  float: left;
+  margin-top: 10px;
+}
+
+#searchBtn {
+  margin-left: 20px;
+  float: left;
+  vertical-align: inherit;
+  margin-top: 7px;
+}
+
+.searchPanel {
+ width: 940px;
+ display: inline-block;
+}
+
+select {
+  width: 100px;
+  height: 20px;
+  padding: 1px;
+  float: left;
+  margin-top: 10px;
+}
+
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {

@@ -4,6 +4,16 @@
 	end
 %>
 
+<div class="center searchPanel">
+	<select>
+		<option value="pubmed">PubMed</option>
+	</select>
+	<form>
+		<input id="pubmedQuery" type="text" name="query"/>
+	</form>
+	<%= link_to "Search", '#', class: "btn", id: "searchBtn" %>
+</div>
+
 <div class="center hero-unit">
 	<h1>Dynamic Pubmed</h1>
 	<p>
