@@ -31,28 +31,26 @@ textarea {
 
 /* home.html.rb */
 
-#pubmedQuery {
+#search {
   width: 710px;
   height: 20px;
   padding: 1px;
-}
-
-form {
-  padding-left: 20px;
+  margin-left: 20px;
   float: left;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 #searchBtn {
   margin-left: 20px;
   float: left;
   vertical-align: inherit;
-  margin-top: 7px;
+  margin-top: 0px;
 }
 
 .searchPanel {
  width: 940px;
  display: inline-block;
+ margin-bottom: 10px;
 }
 
 select {

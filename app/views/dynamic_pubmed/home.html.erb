@@ -1,26 +1,31 @@
 <% 
-	def printa()
-		return 25
-	end
+	
 %>
 
 <div class="center searchPanel">
 	<select>
 		<option value="pubmed">PubMed</option>
 	</select>
-	<form>
-		<input id="pubmedQuery" type="text" name="query"/>
-	</form>
-	<%= link_to "Search", '#', class: "btn", id: "searchBtn" %>
+	<%= form_tag root_path, method: 'get' do %>
+		<p>
+			<%= text_field_tag :search, params[:search] %>
+			<%= submit_tag 'Search', name: nil, id: 'searchBtn' %>
+		</p>
+	<% end %>
 </div>
 
 <div class="center hero-unit">
-	<h1>Dynamic Pubmed</h1>
-	<p>
-		This is the home page for the the Dynamic Pubmed User Interface Application	<%= printa() %>
-	</p>
-
-	<%= link_to "Sign up now!", '#', class: "btn btn-large btn-primary" %>
+	<% if @query.empty? %>
+		<h1>Dynamic Pubmed</h1>
+		<p>
+			This is the home page for the the Dynamic Pubmed User Interface Application.
+		</p>
+		<p>
+			Please enter a query to begin
+		</p>
+	<% else %>
+		<!-- Display Results -->
+	<% end %>
 </div>
 
 <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
