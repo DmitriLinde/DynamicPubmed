@@ -31,34 +31,43 @@ textarea {
 
 /* home.html.rb */
 
-#search {
+#searchPanel {
+ width: 940px;
+ height: 100px;
+ margin-top: -20px;
+ background: #ffffff;
+ display: inline-block;
+ margin-bottom: 10px;
+ position: fixed;
+
+ #searchBtn{
+    margin-left: 20px;
+    float: left;
+    vertical-align: inherit;
+    margin-top: 30px;
+ }
+
+ #search {
   width: 710px;
   height: 20px;
   padding: 1px;
   margin-left: 20px;
   float: left;
-  margin-top: 0px;
-}
+  margin-top: 30px;
+ }
 
-#searchBtn {
-  margin-left: 20px;
-  float: left;
-  vertical-align: inherit;
-  margin-top: 0px;
-}
-
-.searchPanel {
- width: 940px;
- display: inline-block;
- margin-bottom: 10px;
-}
-
-select {
+ select {
   width: 100px;
   height: 20px;
   padding: 1px;
   float: left;
-  margin-top: 10px;
+  margin-top: 40px;
+  margin-left: 10px;
+ }
+}
+
+#mainContainer {
+  margin-top: 75px;
 }
 
 /* typography */
@@ -131,4 +140,22 @@ footer {
       margin-left: 10px;
     }
   }
+}
+
+/* Query Results */
+
+.identifier {
+  display: inline;
+  float: left;
+  overflow: visible;
+  span {
+    display: block;
+    clear: both;
+    margin-right: 5px;
+    margin-left: 1px;
+  }
+}
+
+.body {
+  margin-left: 28px;
 }
