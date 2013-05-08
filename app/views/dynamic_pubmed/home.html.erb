@@ -29,36 +29,36 @@
 				<%= @newQuery %>
 			<% end %>
 			<!-- Display Results -->
-			<% len = @results.length - 1 %>
-			<% if len > 20 %>
-				<% len = 20 %>
-			<% end %>
-			<% for i in 0..len %>
-			<p class='article'>
-				<div class='identifier'>
-					<span><%= (i+1).to_s + '.' %></span>
-					<% if @results[i].score == 0 %>
-						<% @liked = i %>
-						<%= link_to params.merge(liked: i.to_s) do %>
-							<span>+1</span>
+			<% for i in 0..(@results.length - 1) %>
+				<p class='article'>
+					<div class='identifier'>
+						<span><%= (i+1).to_s + '.' %></span>
+						<% if @results[i].score == 0 %>
+							<% @liked = i %>
+							<%= link_to params.merge(liked: i.to_s) do %>
+								<span>+1</span>
+							<% end %>
+						<% else %>
+							<span>&#x2713;</span>
 						<% end %>
-					<% else %>
-						<span>&#x2713;</span>
-					<% end %>
-				</div>
-				<div class='body'>
-					<%= link_to(('http://www.ncbi.nlm.nih.gov/pubmed/' + @results[i].pmid.to_s), html_options = {}) do %> 
-						<u><%= @results[i].title %></u></br>
-					<% end %>
-					<%= @results[i].authors %></br>
-					<% if @results[i].so == "" %>
-						<%= @results[i].so + " No abstract available" %></br>
-					<% else %>
-						<%= @results[i].so %></br>
-					<% end %>
-					<%= "PMID: " + @results[i].pmid + " [Pubmed - indexed for MEDLINE" %> 
-				</div>
-			</p>
+					</div>
+					<div class='body'>
+						<%= link_to(('http://www.ncbi.nlm.nih.gov/pubmed/' + @results[i].pmid.to_s), html_options = {}) do %> 
+							<u><%= @results[i].title %></u></br>
+						<% end %>
+						<% if not @results[i].authors.empty? %>
+							<%= @results[i].authors %></br>
+						<% else %>
+							Authors: N/A</br>
+						<% end %>
+						<% if @results[i].so == "" %>
+							<%= @results[i].so + " No abstract available" %></br>
+						<% else %>
+							<%= @results[i].so %></br>
+						<% end %>
+						<%= "PMID: " + @results[i].pmid + " [Pubmed - indexed for MEDLINE" %> 
+					</div>
+				</p>
 			<% end %>
 		</div>
 	<% end %>

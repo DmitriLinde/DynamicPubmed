@@ -18,9 +18,10 @@ class Query < ActiveRecord::Base
 
 		# get liked article's mesh headers
 		mhs = results[0][:meshHeaders]
-
+		
 		genotype = Array.new
 		genotype = (([nil]*mhs.length).each {|i| genotype.push(i)}).fill { |i| (rand*5).round }
+
 		# at least one bit must be 1
 		sum = 0
 		genotype.each {|bit| sum += bit}
@@ -31,10 +32,11 @@ class Query < ActiveRecord::Base
 		queryAugmentMHs = Array.new
 		queryAugmentMHs = (results[0][:meshHeaders]).select { |mh| genotype[(results[0][:meshHeaders]).index(mh)] == 1 }
 
+
 		updateString = queryAugmentMHs.join('"[mh] OR "').concat('"').insert(0, ' OR "') + "[mh]"
 		evolutionQuery = query + updateString
 
-		return @dp.main(evolutionQuery), evolutionQuery
+		return evolutionQuery
 	end
 end
 
