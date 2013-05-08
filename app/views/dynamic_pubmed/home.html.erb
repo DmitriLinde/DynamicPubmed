@@ -28,7 +28,12 @@
 				<p class="center">
 					<% localMhList = @mhList.join('|') %>
 					<% localGenotype = @genotype.join('|') %>
-					<%= link_to("Evolve", url_options = {search: @newQuery, origQuery: params[:search], evolving: "1", mhList: localMhList, genotype: localGenotype}, html_options = {class: "btn btn-large btn-primary"}) %>
+					<% if localMhList.length > 1 %>
+						<%= link_to("Evolve", url_options = {search: @newQuery, origQuery: params[:search], evolving: "1", mhList: localMhList, genotype: localGenotype}, html_options = {class: "btn btn-large btn-primary"}) %>
+					<% else %>
+						<p class="center">Currently Selecteded Articles Do Not Have Mesh Headers</p>
+						<p class="center">Please Make Another Selection</p>
+					<% end %>
 				</p>
 			<% end %>
 				
