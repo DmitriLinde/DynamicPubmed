@@ -84,7 +84,7 @@ class Query < ActiveRecord::Base
 
 	def NextGeneration(origQuery, mhList, genotype)
 		for i in 0..(genotype.length-1)
-			genotype[1] = (rand*5).round
+			genotype[i] = (rand*5).round
 		end
 
 		queryAugmentMHs = Array.new
