@@ -18,6 +18,9 @@
 				This is the home page for the the Dynamic Pubmed User Interface Application.
 			</p>
 			<p>
+				View <%= link_to 'Help', help_path%>/<%= link_to 'About', about_path %> pages for more information
+			</p>
+			<p>
 				Please enter a query to begin
 			</p>
 		</div>
@@ -53,9 +56,9 @@
 						<span><%= (i+1).to_s + '.' %></span>
 						<% if @results[i].score == 0 %>
 							<% if params[:liked] %>
-								<%= link_to('+1', url_options = {liked: (params[:liked] + ',' + @results[i].pmid), search: params[:search]})%>
+								<%= link_to('+1', url_options = {liked: (params[:liked] + ',' + @results[i].pmid), search: params[:search]}, html_options = {class: "btn-primary"})%>
 							<% else %>
-								<%= link_to('+1', url_options = {liked: (@results[i].pmid), search: params[:search]}) %>
+								<%= link_to('+1', url_options = {liked: (@results[i].pmid), search: params[:search]}, html_options = {class: "btn-primary"}) %>
 							<% end %>
 						<% else %>
 							<span>&#x2713;</span>

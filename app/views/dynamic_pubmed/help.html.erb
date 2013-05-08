@@ -1,3 +1,18 @@
 <% provide(:title, 'Help') %>
 <h1>Help</h1>
-<p>Help Instructions</p>
+<ul>
+	<li>In order to start using the Dynamic Pubmed interface, enter a query into the search bar</li>
+	<ul>
+		<li>Example Query: <%= link_to'"University of Vermont"[ad] and "obesity"[mh]', (root_url + '/?utf8=✓&search="university+of+vermont"[ad] and "obesity"[mh]') %> </li>
+	</ul>
+	<li>Once a list of articles is generated, use the <%= link_to('+1', '#', class: "btn-primary") %> buttons to select articles you like</li>
+	<ul>
+		<li>Dynamic Pubmed is not currently able to evolve articles without a list of mesh headers in the PubMed databases.</li>
+		<li>Number of articles returned is intentionally cut off at 20 since the purpose of the application is to return highly customized results (no need for large amounts of data)</li>
+	</ul>
+	<li>Once all liked articles are selected, press the <%= link_to('Evolve', '#', class: "btn btn-primary") %> button to generate articles, contents of which are similar to those articles you had just previously liked</li>
+	<li>Once the articles are repopulated, if you see an article you like, use the <%= link_to('+1', '#', class: "btn-primary") %> button to select it and re-initiate evolution. If you do not see any articles you like, use the <%= link_to('Next Generation', '#', class: "btn btn-primary") %> button to re-seed the evolutionary algorithm</li>
+</ul>
+<div class="center">
+	<%= link_to 'Back to Home', root_path, class: "btn btn-large btn-primary" %>
+</div>

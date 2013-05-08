@@ -1,3 +1,13 @@
 <% provide(:title, 'About') %>
 <h1>About</h1>
-<p>Hello There!</p>
+<ul>
+	<li>Developed By: <%= link_to 'Dmitri Linde', 'http://www.linkedin.com/profile/view?id=221646129&trk=nav_responsive_tab_profile_pic' %></li>
+	<li>Developed For: <%= link_to 'University of Vermont', 'http://www.uvm.edu/' %> - <%= link_to 'Department of Biomedical Informatics', 'http://vgn.uvm.edu/bioinformatics/' %> - <%= link_to 'CS 295 Final Project', 'https://github.com/DmitriLinde/DynamicPubmed' %></li>
+	<li>Abstract: Dynamic Pubmed is essentially a layer above the <%= link_to 'original PubMed database querying system', 'http://www.ncbi.nlm.nih.gov/pubmed/' %>. Given a dynamic interface, the application's users are allowed to 'Like' particular articles and have an evolutionary algorithm sort through and return PubMed aritcles with similar characteristics. Given time and intuitive user input, the hope of algorithm is to begin producing results customized to the particular user's needs.</li>
+	<li>Heart of application is a naive implementation of the evolutionary randomized <%= link_to 'Hill Climber', 'https://en.wikipedia.org/wiki/Hill_climbing' %> (Gradient Descent) algorithm. Genotype: List of MeshHeaders common to liked articles; Phenotype: User's Input</li>
+	<li>Current Bugs: Exceeding URI length</li>
+	<li>Note: Application cannot currently work with PubMed articles without MeshHeader lists</li>
+</ul>
+<div class="center">
+	<%= link_to 'Back to Home', root_path, class: "btn btn-large btn-primary" %>
+</div>
