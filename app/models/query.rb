@@ -13,30 +13,73 @@ class Query < ActiveRecord::Base
 		end
 	end
 
-	def like(likedIndex, query)
-		results = @dp.like(likedIndex)
+	def like(liked, query)
+		likedPMIDs = Array.new
+		temp = liked.split(',')
+		temp.each {|elt| likedPMIDs.push(elt)}
 
-		# get liked article's mesh headers
-		mhs = results[0][:meshHeaders]
-		
-		genotype = Array.new
-		genotype = (([nil]*mhs.length).each {|i| genotype.push(i)}).fill { |i| (rand*5).round }
+		results = @dp.like(likedPMIDs)
 
-		# at least one bit must be 1
-		sum = 0
-		genotype.each {|bit| sum += bit}
-		if sum < 1
-			genotype[(rand*genotype.length).floor] = 1
+		if likedPMIDs.length == 1
+			# get most liked article's mesh headers
+			mhs = results[0][:meshHeaders]
+			
+			genotype = Array.new
+			genotype = (([nil]*mhs.length).each {|i| genotype.push(i)}).fill { |i| (rand*5).round }
+
+			# at least one bit must be 1
+			sum = 0
+			genotype.each {|bit| sum += bit}
+			if sum < 1
+				genotype[(rand*genotype.length).floor] = 1
+			end
+
+			queryAugmentMHs = Array.new
+			queryAugmentMHs = (results[0][:meshHeaders]).select { |mh| genotype[(results[0][:meshHeaders]).index(mh)] == 1 }
+
+
+			updateString = queryAugmentMHs.join('"[mh] OR "').concat('"').insert(0, ' OR "') + "[mh]"
+			evolutionQuery = query + updateString
+
+			return evolutionQuery
+		else
+			# get each liked article's mesh headers
+			mhs = Array.new
+			numLiked = likedPMIDs.length - 1
+			for i in 0..numLiked
+				mhs.push(results[i][:meshHeaders])
+			end
+
+			# record common hesh headers
+			uniqueMHs = Array.new
+			for i in 0..(mhs.length-1)
+				for j in 0..(mhs[i].length-1)
+					if !uniqueMHs.include? mhs[i][j]
+						uniqueMHs.push(mhs[i][j])
+					end
+				end
+			end
+
+			# continue algorithm
+			genotype = Array.new
+			genotype = (([nil]*uniqueMHs.length).each {|i| genotype.push(i)}).fill { |i| (rand*5).round }
+
+			# at least one bit must be 1
+			sum = 0
+			genotype.each {|bit| sum += bit}
+			if sum < 1
+				genotype[(rand*genotype.length).floor] = 1
+			end
+
+			queryAugmentMHs = Array.new
+			queryAugmentMHs = (uniqueMHs).select { |mh| genotype[(uniqueMHs).index(mh)] == 1 }
+
+
+			updateString = queryAugmentMHs.join('"[mh] OR "').concat('"').insert(0, ' OR "') + "[mh]"
+			evolutionQuery = query + updateString
+
+			return evolutionQuery
 		end
-
-		queryAugmentMHs = Array.new
-		queryAugmentMHs = (results[0][:meshHeaders]).select { |mh| genotype[(results[0][:meshHeaders]).index(mh)] == 1 }
-
-
-		updateString = queryAugmentMHs.join('"[mh] OR "').concat('"').insert(0, ' OR "') + "[mh]"
-		evolutionQuery = query + updateString
-
-		return evolutionQuery
 	end
 end
 
@@ -87,11 +130,7 @@ class DynamicPubmed
 		return @Results
 	end
 
-	def like(liked)
-		likedPMIDs = Array.new
-		temp = liked.split(',')
-		temp.each {|elt| likedPMIDs.push(elt)}
-
+	def like(likedPMIDs)
 		likedIndeces = Array.new
 		for i in 0..(likedPMIDs.length-1)
 			for j in 0..(@Results.length-1)
