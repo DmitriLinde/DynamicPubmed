@@ -11,8 +11,8 @@ class DynamicPubmedController < ApplicationController
 
 		# IF user has also liked an item, augment results
 		if params[:liked]
-			@likedIndex = params[:liked].to_i
-			@newQuery = @LogicModel.like(@likedIndex, @query)
+			@userLiked = params[:liked]
+			@newQuery = @LogicModel.like(@userLiked, @query)
 		end
 	else 
 		@query = ""

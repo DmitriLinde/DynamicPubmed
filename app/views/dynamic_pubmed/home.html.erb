@@ -34,8 +34,14 @@
 					<div class='identifier'>
 						<span><%= (i+1).to_s + '.' %></span>
 						<% if @results[i].score == 0 %>
-							<%= link_to params.merge(liked: i.to_s) do %>
-								<span>+1</span>
+							<% if params[:liked] %>
+								<%= link_to params.merge(liked: (params[:liked] + ',' + @results[i].pmid)) do %>
+									<span>+1</span>
+								<% end %>
+							<% else %>
+								<%= link_to params.merge(liked: @results[i].pmid) do %>
+									<span>+1</span>
+								<% end %>
 							<% end %>
 						<% else %>
 							<span>&#x2713;</span>

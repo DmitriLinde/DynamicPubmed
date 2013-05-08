@@ -87,8 +87,19 @@ class DynamicPubmed
 		return @Results
 	end
 
-	def like(likedIndex)
-		@Results[likedIndex][:score] += 1
+	def like(liked)
+		likedPMIDs = Array.new
+		temp = liked.split(',')
+		temp.each {|elt| likedPMIDs.push(elt)}
+
+		likedIndeces = Array.new
+		for i in 0..(likedPMIDs.length-1)
+			for j in 0..(@Results.length-1)
+				if likedPMIDs[i] == @Results[j][:pmid]
+					@Results[j][:score] += 1
+				end
+			end
+		end
 
 		# Sort Results by User Fitness
 		@Results.sort! {|a,b| b[:score] <=> a[:score]}
