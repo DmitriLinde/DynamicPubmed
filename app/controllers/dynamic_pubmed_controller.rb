@@ -12,7 +12,18 @@ class DynamicPubmedController < ApplicationController
 		# IF user has also liked an item, augment results
 		if params[:liked]
 			@userLiked = params[:liked]
-			@newQuery = @LogicModel.like(@userLiked, @query)
+			@returned = @LogicModel.Like(@userLiked, @query)
+
+			@newQuery = @returned[0]
+			@mhList = @returned[1]
+			@genotype = @returned[2]
+		elsif params[:evolving]
+			if params[:evolving] == "1"
+				# update @newQuery
+				mhList = params[:mhList].split('|')
+				genotype = params[:genotype].split('|')
+				@newQuery = @LogicModel.NextGeneration(params[:origQuery], mhList, genotype)
+			end
 		end
 	else 
 		@query = ""

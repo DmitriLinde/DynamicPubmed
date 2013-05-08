@@ -13,7 +13,7 @@ class Query < ActiveRecord::Base
 		end
 	end
 
-	def like(liked, query)
+	def Like(liked, query)
 		likedPMIDs = Array.new
 		temp = liked.split(',')
 		temp.each {|elt| likedPMIDs.push(elt)}
@@ -41,7 +41,7 @@ class Query < ActiveRecord::Base
 			updateString = queryAugmentMHs.join('"[mh] OR "').concat('"').insert(0, ' OR "') + "[mh]"
 			evolutionQuery = query + updateString
 
-			return evolutionQuery
+			return evolutionQuery, results[0][:meshHeaders], genotype
 		else
 			# get each liked article's mesh headers
 			mhs = Array.new
@@ -78,8 +78,23 @@ class Query < ActiveRecord::Base
 			updateString = queryAugmentMHs.join('"[mh] OR "').concat('"').insert(0, ' OR "') + "[mh]"
 			evolutionQuery = query + updateString
 
-			return evolutionQuery
+			return evolutionQuery, uniqueMHs, genotype
 		end
+	end
+
+	def NextGeneration(origQuery, mhList, genotype)
+		for i in 0..(genotype.length-1)
+			genotype[1] = (rand*5).round
+		end
+
+		queryAugmentMHs = Array.new
+		queryAugmentMHs = (mhList).select { |mh| genotype[(mhList).index(mh)] == 1 }
+
+
+		updateString = queryAugmentMHs.join('"[mh] OR "').concat('"').insert(0, ' OR "') + "[mh]"
+		evolutionQuery = origQuery + updateString
+
+		return evolutionQuery
 	end
 end
 

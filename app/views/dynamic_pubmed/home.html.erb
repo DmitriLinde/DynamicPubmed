@@ -23,11 +23,24 @@
 		</div>
 	<% else %>
 		<div class="hero-unit">
-			<% if @newQuery %>
-				<!-- Alter URL parameters -->
-				<%= link_to 'Evolve', search: @newQuery %>
-				<%= @newQuery %>
+			<!-- Alter URL parameters -->
+			<% if @mhList and @genotype %>
+				<p class="center">
+					<% localMhList = @mhList.join('|') %>
+					<% localGenotype = @genotype.join('|') %>
+					<%= link_to("Evolve", url_options = {search: @newQuery, origQuery: params[:search], evolving: "1", mhList: localMhList, genotype: localGenotype}, html_options = {class: "btn btn-large btn-primary"}) %>
+				</p>
 			<% end %>
+				
+
+			<% if params[:evolving] %>
+				<p class="center">
+					<% if params[:evolving] == "1" %>
+						 <%= link_to("Next Generation", url_options = {search: @newQuery, origQuery: params[:origQuery], evolving: "1", mhList: params[:mhList], genotype: params[:genotype]}, html_options = {class: "btn btn-large btn-primary"}) %>
+					<% end %>
+				</p>
+			<% end %>
+
 			<!-- Display Results -->
 			<% for i in 0..(@results.length - 1) %>
 				<p class='article'>
@@ -35,13 +48,9 @@
 						<span><%= (i+1).to_s + '.' %></span>
 						<% if @results[i].score == 0 %>
 							<% if params[:liked] %>
-								<%= link_to params.merge(liked: (params[:liked] + ',' + @results[i].pmid)) do %>
-									<span>+1</span>
-								<% end %>
+								<%= link_to('+1', url_options = {liked: (params[:liked] + ',' + @results[i].pmid), search: params[:search]})%>
 							<% else %>
-								<%= link_to params.merge(liked: @results[i].pmid) do %>
-									<span>+1</span>
-								<% end %>
+								<%= link_to('+1', url_options = {liked: (@results[i].pmid), search: params[:search]}) %>
 							<% end %>
 						<% else %>
 							<span>&#x2713;</span>
