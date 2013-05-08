@@ -34,7 +34,6 @@
 					<div class='identifier'>
 						<span><%= (i+1).to_s + '.' %></span>
 						<% if @results[i].score == 0 %>
-							<% @liked = i %>
 							<%= link_to params.merge(liked: i.to_s) do %>
 								<span>+1</span>
 							<% end %>

@@ -14,7 +14,7 @@ class DynamicPubmedController < ApplicationController
 			@likedIndex = params[:liked].to_i
 			@newQuery = @LogicModel.like(@likedIndex, @query)
 		end
-	else
+	else 
 		@query = ""
 	end
   end
